@@ -8,6 +8,16 @@
     - git
     - vim
     - python3-pip
+    - vlc
+    - nfs-common
+    - sublime-text
+    - apt-transport-https
+    - chrome-gnome-shell
+    - bash-completion
+    - gnupg
+    - lsb-release
+    - ca-certificates
+    - openrazer-meta
     -
 
 - name: Add aliases to ~/.bash_aliases
