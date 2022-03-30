@@ -1,0 +1,8 @@
+- name: "Playing with Ansible and Git"
+  hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - role: apps
+    - role: kubernetes
+    - role: sudo

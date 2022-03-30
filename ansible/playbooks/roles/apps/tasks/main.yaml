@@ -1,0 +1,19 @@
+---
+- name: Ensure we have curl
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl
+    - git
+    - vim
+    - python3-pip
+    -
+
+- name: Add aliases to ~/.bash_aliases
+  blockinfile:
+    path: "/home/{{ username }}/.bash_aliases"
+    block: "{{ item.alias }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.marker }}"
+  loop:
+    - { alias: "alias k='kubectl'", marker: "kubectl" }

@@ -1,0 +1,18 @@
+---
+- name: Ensure we have curl
+  apt:
+    name: curl
+    state: present
+
+- name: Save Stable version
+  uri:
+    url: https://storage.googleapis.com/kubernetes-release/release/stable.txt
+    method: GET
+    return_content: yes
+  register: stable_version_result
+
+- name: Save latest release
+  get_url:
+    url: "https://dl.k8s.io/release/{{ stable_version_result.content }}/bin/linux/amd64/kubectl"
+    dest: /usr/bin/kubectl
+    mode: "0755"
