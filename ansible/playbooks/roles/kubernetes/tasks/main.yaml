@@ -16,3 +16,11 @@
     url: "https://dl.k8s.io/release/{{ stable_version_result.content }}/bin/linux/amd64/kubectl"
     dest: /usr/bin/kubectl
     mode: "0755"
+
+- name: Add aliases to ~/.bash_aliases
+  blockinfile:
+    path: "/home/{{ username }}/.bash_aliases"
+    block: "{{ item.alias }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.marker }}"
+  loop:
+    - { alias: "alias k='kubectl'", marker: "kubectl" }
