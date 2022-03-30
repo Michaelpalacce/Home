@@ -1,4 +1,4 @@
-- name: "Playing with Ansible and Git"
+- name: Configure Local PC
   hosts: localhost
   connection: local
   become: true

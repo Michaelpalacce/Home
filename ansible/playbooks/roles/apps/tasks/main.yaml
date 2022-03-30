@@ -1,5 +1,5 @@
 ---
-- name: Ensure we have curl
+- name: Ensure apps are installed
   apt:
     name: "{{ item }}"
     state: present

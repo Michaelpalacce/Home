@@ -1,5 +1,5 @@
 ---
-- name: Ensure Local file exists
+- name: "Setup passwordless sudoer: {{ username }}"
   copy:
     dest: "/etc/sudoers.d/10-{{ username }}-user"
     content: "{{ username }} ALL=(ALL) NOPASSWD:ALL"
