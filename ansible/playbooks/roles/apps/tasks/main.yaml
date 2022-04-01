@@ -18,4 +18,21 @@
     - lsb-release
     - ca-certificates
     - openrazer-meta
-    -
+
+- name: KVM Pre-Reqs
+  apt:
+      name: "{{ item }}"
+      state: present
+  with_items:
+      - bridge-utils
+      - cpu-checker
+      - libvirt-clients
+      - libvirt-daemon
+      - qemu
+      - qemu-kvm
+
+- name: Check if Virtualization Capabilities exist
+  shell: kvm-ok
+  register: kvm_status
+  failed_when: '"KVM acceleration can NOT be used" in kvm_status.stdout'
+  changed_when: false

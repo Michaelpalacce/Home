@@ -1,8 +1,16 @@
-- name: Configure Local PC
+- name: Configure Apps
+  hosts: localhost
+  connection: local
+  become: true
+  tags:
+      - apps
+  roles:
+      - role: apps
+
+- name: Configure Otehrs
   hosts: localhost
   connection: local
   become: true
   roles:
-    - role: apps
-    - role: kubernetes
-    - role: sudo
+      - role: kubernetes
+      - role: sudo
