@@ -1,1 +1,4 @@
 ---
+architecture: amd64 # Architecture
+os: linux # Os you are using
+usrBin: /usr/bin # Where the OS usr bin folder is ( so we can put the binary there )

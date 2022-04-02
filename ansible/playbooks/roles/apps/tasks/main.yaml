@@ -18,6 +18,7 @@
     - lsb-release
     - ca-certificates
     - openrazer-meta
+    - sshpass
 
 - name: KVM Pre-Reqs
   apt:

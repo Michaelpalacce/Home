@@ -1,26 +1,76 @@
 ---
-- name: Ensure we have curl
-  apt:
-    name: curl
-    state: present
+#- name: Ensure we have curl
+#  apt:
+#    name: curl
+#    state: present
+#
+#- name: Save Stable version
+#  uri:
+#    url: https://storage.googleapis.com/kubernetes-release/release/stable.txt
+#    method: GET
+#    return_content: yes
+#  register: stable_version_result
+#
+#- name: Save latest release
+#  get_url:
+#    url: "https://dl.k8s.io/release/{{ stable_version_result.content }}/bin/linux/amd64/kubectl"
+#    dest: /usr/bin/kubectl
+#    mode: "0755"
 
-- name: Save Stable version
-  uri:
-    url: https://storage.googleapis.com/kubernetes-release/release/stable.txt
-    method: GET
-    return_content: yes
-  register: stable_version_result
+- name: Fetch velero latest version
+  shell: curl -s -XGET https://api.github.com/repos/vmware-tanzu/velero/tags | grep name -m 1 | awk '{print $2}' | cut -d'"' -f2
+  register: veleroVersion
 
-- name: Save latest release
+- name: Ensure install dir exists
+  file:
+      path: /tmp/velero
+      state: directory
+
+- name: Set velero BaseName
+  set_fact:
+      veleroArchiveBaseName: "velero-{{ veleroVersion.stdout }}-{{ os }}-{{ architecture }}"
+
+- name: Set velero archive name
+  set_fact:
+      veleroArchive: "{{ veleroArchiveBaseName }}.tar.gz"
+
+- name: Fetch latest velero release
   get_url:
-    url: "https://dl.k8s.io/release/{{ stable_version_result.content }}/bin/linux/amd64/kubectl"
-    dest: /usr/bin/kubectl
-    mode: "0755"
+      url: "https://github.com/vmware-tanzu/velero/releases/download/{{ veleroVersion.stdout }}/{{ veleroArchive }}"
+      dest: "/tmp/velero/{{ veleroArchive }}"
+
+- name: Extract velero release into /tmp/velero
+  ansible.builtin.unarchive:
+      src: "/tmp/velero/{{ veleroArchive }}"
+      dest: /tmp/velero
+
+- name: "Move velero binary to {{ usrBin }}"
+  copy:
+      dest: "{{ usrBin }}/velero"
+      src: "/tmp/velero/{{ veleroArchiveBaseName }}/velero"
+      mode: 0755
+
+- name: Autocompletions
+  blockinfile:
+    path: "/home/{{ username }}/.bashrc"
+    block: "{{ item.completion }}"
+    marker: "# {mark} ANSIBLE MANAGED SOURCE COMPLETION BLOCK {{ item.marker }}"
+  loop:
+    - completion: |
+          source <(kubectl completion bash)
+          complete -F __start_kubectl k
+      marker: "kubectl"
+    - completion: |
+          source <(velero completion bash)
+          complete -F __start_velero v
+      marker: "velero"
 
 - name: Add aliases to ~/.bash_aliases
   blockinfile:
-    path: "/home/{{ username }}/.bash_aliases"
-    block: "{{ item.alias }}"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.marker }}"
+      path: "/home/{{ username }}/.bash_aliases"
+      block: "{{ item.alias }}"
+      marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.marker }}"
   loop:
-    - { alias: "alias k='kubectl'", marker: "kubectl" }
+      - { alias: "alias k='kubectl'", marker: "kubectl" }
+      - { alias: "alias kubens='kubectl config set-context --current --namespace'", marker: "kubectl-namespace" }
+      - { alias: "alias v='velero'", marker: "velero" }
