@@ -1,24 +1,23 @@
 ---
 - name: Ensure apps are installed
   apt:
-    name: "{{ item }}"
+    name:
+        - curl
+        - git
+        - vim
+        - python3-pip
+        - vlc
+        - nfs-common
+        - apt-transport-https
+        - chrome-gnome-shell
+        - bash-completion
+        - gnupg
+        - lsb-release
+        - ca-certificates
+        - openrazer-meta
+        - sshpass
     state: present
     update_cache: true
-  with_items:
-    - curl
-    - git
-    - vim
-    - python3-pip
-    - vlc
-    - nfs-common
-    - apt-transport-https
-    - chrome-gnome-shell
-    - bash-completion
-    - gnupg
-    - lsb-release
-    - ca-certificates
-    - openrazer-meta
-    - sshpass
 
 - name: KVM Pre-Reqs
   apt:
@@ -41,4 +40,4 @@
 - name: Ensure bash_aliases exists
   file:
     path: "/home/{{ username }}/.bash_aliases"
-    state: exists
+    state: touch

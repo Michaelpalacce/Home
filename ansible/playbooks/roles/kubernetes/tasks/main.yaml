@@ -50,6 +50,25 @@
       src: "/tmp/velero/{{ veleroArchiveBaseName }}/velero"
       mode: 0755
 
+- name: Ensure Flux installation file is missing
+  file:
+    path: /tmp/flux.sh
+    state: absent
+
+- name: Fetch fluxcd
+  get_url:
+      url: https://fluxcd.io/install.sh
+      dest: /tmp/flux.sh
+      mode: "0755"
+
+- name: Install flux
+  shell: /tmp/flux.sh
+
+- name: Remove Flux installation file
+  file:
+      path: /tmp/flux.sh
+      state: absent
+
 - name: Autocompletions
   blockinfile:
     path: "/home/{{ username }}/.bashrc"
@@ -64,6 +83,9 @@
           source <(velero completion bash)
           complete -F __start_velero v
       marker: "velero"
+    - completion: |
+          source <(flux completion bash)
+      marker: "fluxcd"
 
 - name: Add aliases to ~/.bash_aliases
   blockinfile:
