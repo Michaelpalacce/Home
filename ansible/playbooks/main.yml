@@ -1,13 +1,13 @@
-#- name: Configure Apps
-#  hosts: localhost
-#  connection: local
-#  become: true
-#  vars_files:
-#      - vars/main.yml
-#  tags:
-#      - apps
-#  roles:
-#      - role: apps
+- name: Configure Apps
+  hosts: localhost
+  connection: local
+  become: true
+  vars_files:
+      - vars/main.yml
+  tags:
+      - apps
+  roles:
+      - role: apps
 
 - name: Configure Otehrs
   hosts: localhost
@@ -17,4 +17,4 @@
       - vars/main.yml
   roles:
       - role: kubernetes
-#      - role: sudo
+      - role: sudo

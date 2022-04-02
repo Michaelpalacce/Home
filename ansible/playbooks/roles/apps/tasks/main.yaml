@@ -37,3 +37,8 @@
   register: kvm_status
   failed_when: '"KVM acceleration can NOT be used" in kvm_status.stdout'
   changed_when: false
+
+- name: Ensure bash_aliases exists
+  file:
+    path: "/home/{{ username }}/.bash_aliases"
+    state: exists
