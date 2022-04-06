@@ -4,6 +4,9 @@
     name: curl
     state: present
 
+- name: Install K9S
+  shell: "curl -sS https://webinstall.dev/k9s | bash"
+
 # KUBECTL START
 - name: Save Stable version
   uri:
