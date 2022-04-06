@@ -1,5 +1,5 @@
 ---
-- name: "Setup passwordless sudoer: {{ username }}"
+- name: "Setup passwordless sudoer: {{ local.username }}"
   copy:
-    dest: "/etc/sudoers.d/10-{{ username }}-user"
-    content: "{{ username }} ALL=(ALL) NOPASSWD:ALL"
+    dest: "/etc/sudoers.d/10-{{ local.username }}-user"
+    content: "{{ local.username }} ALL=(ALL) NOPASSWD:ALL"

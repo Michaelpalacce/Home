@@ -1,0 +1,1 @@
+Setups symbolic links between different directories/files as well as other fs operations. Takes cares of local houskeeping tasks

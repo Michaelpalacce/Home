@@ -1,3 +1,4 @@
 ---
 
-username: stefan
+local:
+    username: stefan

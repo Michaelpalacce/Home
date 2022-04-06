@@ -3,7 +3,7 @@
   connection: local
   become: true
   vars_files:
-      - vars/main.yml
+      - ../vars/main.yml
   tags:
       - apps
   roles:
@@ -14,7 +14,7 @@
   connection: local
   become: true
   vars_files:
-      - vars/main.yml
+      - ../vars/main.yml
   tags:
     - kubernetes
   roles:
@@ -25,8 +25,10 @@
   connection: local
   become: true
   vars_files:
-      - vars/main.yml
+      - ../vars/main.yml
   tags:
     - others
   roles:
+      - role: local
       - role: sudo
+      - role: nas

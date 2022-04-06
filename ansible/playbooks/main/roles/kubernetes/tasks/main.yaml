@@ -32,7 +32,7 @@
 
 - name: Set velero BaseName
   set_fact:
-      veleroArchiveBaseName: "velero-{{ veleroVersion.stdout }}-{{ os }}-{{ architecture }}"
+      veleroArchiveBaseName: "velero-{{ veleroVersion.stdout }}-{{ system.os }}-{{ system.architecture }}"
 
 - name: Set velero archive name
   set_fact:
@@ -48,9 +48,9 @@
       src: "/tmp/velero/{{ veleroArchive }}"
       dest: /tmp/velero
 
-- name: "Move velero binary to {{ usrBin }}"
+- name: "Move velero binary to {{ local.userBin }}"
   copy:
-      dest: "{{ usrBin }}/velero"
+      dest: "{{ local.userBin }}/velero"
       src: "/tmp/velero/{{ veleroArchiveBaseName }}/velero"
       mode: 0755
 
@@ -104,7 +104,7 @@
 
 - name: Autocompletions
   blockinfile:
-    path: "/home/{{ username }}/.bashrc"
+    path: "/home/{{ local.username }}/.bashrc"
     block: "{{ item.completion }}"
     marker: "# {mark} ANSIBLE MANAGED SOURCE COMPLETION BLOCK {{ item.marker }}"
   loop:
@@ -126,7 +126,7 @@
 
 - name: Add aliases to ~/.bash_aliases
   blockinfile:
-      path: "/home/{{ username }}/.bash_aliases"
+      path: "/home/{{ local.username }}/.bash_aliases"
       block: "{{ item.alias }}"
       marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.marker }}"
   loop:

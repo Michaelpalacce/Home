@@ -1,0 +1,40 @@
+---
+- name: Set Symlinks
+  set_fact:
+      mediaLinks:
+          - src: /mnt/media/Documents
+            path: "/home/{{ local.username }}/Documents"
+          - src: /mnt/media/Downloads
+            path: "/home/{{ local.username }}/Downloads"
+          - src: /mnt/media/Music
+            path: "/home/{{ local.username }}/Music"
+          - src: /mnt/media/Videos
+            path: "/home/{{ local.username }}/Videos"
+          - src: /mnt/media/Desktop
+            path: "/home/{{ local.username }}/Desktop"
+          - src: /mnt/media/Pictures
+            path: "/home/{{ local.username }}/Pictures"
+
+- name: Ensure Symlinks Dirs Exist
+  file:
+      path: "{{ item.src }}"
+      state: directory
+      owner: "{{ local.username }}"
+      group: "{{ local.group }}"
+  loop: "{{ mediaLinks }}"
+
+- name: Ensure Symlinks Are Set
+  file:
+      src: "{{ item.src }}"
+      path: "{{ item.path }}"
+      state: link
+      owner: "{{ local.username }}"
+      group: "{{ local.group }}"
+  loop: "{{ mediaLinks }}"
+
+- name: Ensure Other Directories Exist
+  file:
+      path: "{{ item }}"
+      state: directory
+  loop:
+      - /home
