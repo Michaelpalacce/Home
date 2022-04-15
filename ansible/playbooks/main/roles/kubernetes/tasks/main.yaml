@@ -22,6 +22,27 @@
     mode: "0755"
 
 # KUBECTL END
+# KIND START
+- name: Ensure install dir exists
+  file:
+      path: /tmp/kind
+      state: directory
+
+- name: Set kind bin name
+  set_fact:
+      kindBin: "kind"
+
+- name: Fetch latest kind release
+  get_url:
+      url: "https://kind.sigs.k8s.io/dl/{{ kind.version }}/kind-{{ system.os }}-{{ system.architecture }}"
+      dest: "/tmp/kind/{{ kindBin }}"
+
+- name: "Move kind binary to {{ local.userBin }}"
+  copy:
+      dest: "{{ local.userBin }}/{{ kindBin }}"
+      src: "/tmp/kind/{{ kindBin }}"
+      mode: 0755
+# KIND END
 # VELERO START
 
 - name: Fetch velero latest version
