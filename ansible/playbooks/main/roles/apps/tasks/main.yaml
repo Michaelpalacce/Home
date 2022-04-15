@@ -1,4 +1,14 @@
 ---
+- name: Add specified repository into sources list
+  ansible.builtin.apt_repository:
+    repo: "{{ item.repo }}"
+    state: "{{ item.state }}"
+  loop:
+    - repo: ppa:lutris-team/lutris
+      state: present
+    - repo: ppa:damentz/liquorix
+      state: present
+
 - name: Ensure apps are installed
   apt:
     name:
@@ -16,6 +26,10 @@
         - ca-certificates
         - openrazer-meta
         - sshpass
+        - lutris
+        - wine64
+        - "linux-image-liquorix-{{ system.architecture }}"
+        - "linux-headers-liquorix-{{ system.architecture }}"
     state: present
     update_cache: true
 
