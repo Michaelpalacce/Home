@@ -8,6 +8,8 @@
       state: present
     - repo: ppa:damentz/liquorix
       state: present
+    - repo: ppa:graphics-drivers/ppa
+      state: present
 
 - name: Ensure apps are installed
   apt:
@@ -32,6 +34,14 @@
         - "linux-headers-liquorix-{{ system.architecture }}"
     state: present
     update_cache: true
+
+- name: Ensure nvidia drivers are installed
+  apt:
+      name:
+          - nvidia-driver-470
+          - libvulkan1
+          - libvulkan1:i386
+  when: system.isNvidia
 
 - name: Ensure pip apps are installed
   pip:

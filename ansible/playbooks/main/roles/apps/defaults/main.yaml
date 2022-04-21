@@ -2,3 +2,6 @@
 
 local:
     username: stefan
+
+system:
+    isNvidia: false
