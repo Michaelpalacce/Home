@@ -60,3 +60,6 @@
   file:
     path: "/home/{{ local.username }}/.bash_aliases"
     state: touch
+
+- name: Autoinstall ubuntu-drivers
+  shell: ubuntu-drivers autoinstall
