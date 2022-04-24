@@ -28,6 +28,7 @@
         - ca-certificates
         - openrazer-meta
         - sshpass
+        - dos2unix
         - lutris
         - wine64
         - "linux-image-liquorix-{{ system.architecture }}"
