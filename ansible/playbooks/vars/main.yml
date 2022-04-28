@@ -3,7 +3,6 @@
 system:
     os: linux # Os you are using
     architecture: amd64 # Architecture, we need it here since docker
-    isNvidia: true
 
 id_rsa_file: "/home/stefan/.ssh/id_rsa"
 
