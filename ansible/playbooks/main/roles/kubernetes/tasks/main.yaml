@@ -43,6 +43,11 @@
       src: "/tmp/kind/{{ kindBin }}"
       mode: 0755
 # KIND END
+# Kubescape START
+- name: Install kubescape
+  shell:
+      cmd: "curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash"
+# Kubescape END
 # VELERO START
 
 - name: Fetch velero latest version

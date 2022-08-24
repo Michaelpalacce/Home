@@ -14,7 +14,7 @@
       when: op.stat.exists
 
     - name: Copy public key to the nodes
-      command: sshpass -p "{{ item.password }}" ssh-copy-id -i "{{ id_rsa_file }}" {{ item.username }}@"{{ item.ip }}" -f -o StrictHostKeyChecking=no
+      shell: "sshpass -p {{ item.password }} ssh-copy-id -f -o StrictHostKeyChecking=no -i {{ id_rsa_file }} {{ item.username }}@{{ item.ip }}"
       loop: "{{ nodes }}"
 
   vars_files:
