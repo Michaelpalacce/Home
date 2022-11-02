@@ -6,8 +6,6 @@
   loop:
     - repo: ppa:lutris-team/lutris
       state: present
-    - repo: ppa:damentz/liquorix
-      state: present
     - repo: ppa:graphics-drivers/ppa
       state: present
 
@@ -34,8 +32,6 @@
         - wine64
         - flatpak
         - gnome-software-plugin-flatpak
-        - "linux-image-liquorix-{{ system.architecture }}"
-        - "linux-headers-liquorix-{{ system.architecture }}"
     state: present
     update_cache: true
 
