@@ -4,8 +4,6 @@
     repo: "{{ item.repo }}"
     state: "{{ item.state }}"
   loop:
-    - repo: ppa:lutris-team/lutris
-      state: present
     - repo: ppa:graphics-drivers/ppa
       state: present
 
@@ -28,7 +26,6 @@
         - sshpass
         - dos2unix
         - unzip
-        - lutris
         - wine64
         - flatpak
         - gnome-software-plugin-flatpak

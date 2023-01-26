@@ -43,6 +43,22 @@
       src: "/tmp/kind/{{ kindBin }}"
       mode: 0755
 # KIND END
+# MINIKUBE START
+- name: Ensure install dir exists
+  file:
+      path: /tmp/minikube
+      state: directory
+
+- name: Fetch minikube installation script
+  get_url:
+      url: "https://storage.googleapis.com/minikube/releases/latest/minikube-{{ system.os }}-{{ system. architecture }}"
+      dest: "/tmp/minikube/minikube-{{ system.os }}-{{ system. architecture }}"
+
+- name: "Install minikube"
+  shell:
+    cmd: "install /tmp/minikube/minikube-{{ system.os }}-{{ system. architecture }} /usr/local/bin/minikube"
+
+# MINIKUBE END
 # Kubescape START
 - name: Install kubescape
   shell:
@@ -152,6 +168,9 @@
           source <(helm completion bash)
           complete -F __start_helm h
       marker: "helm"
+    - completion: |
+          source <(minikube completion bash)
+      marker: "minikube"
 
 - name: Add aliases to ~/.bash_aliases
   blockinfile:
