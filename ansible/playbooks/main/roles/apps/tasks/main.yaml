@@ -66,3 +66,7 @@
 - name: Install Docker
   shell:
     cmd: curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
+
+- name: Install Datree
+  shell:
+    cmd: curl https://get.datree.io | /bin/bash
