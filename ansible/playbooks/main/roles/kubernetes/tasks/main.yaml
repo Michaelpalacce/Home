@@ -32,9 +32,13 @@
   set_fact:
       kindBin: "kind"
 
+- name: Get latest version number
+  shell: curl -s -XGET https://api.github.com/repos/kubernetes-sigs/kind/tags | grep name -m 2 | grep -v "alpha" | awk '{print $2}' | cut -d'"' -f2
+  register: kindVersion
+
 - name: Fetch latest kind release
   get_url:
-      url: "https://kind.sigs.k8s.io/dl/{{ kind.version }}/kind-{{ system.os }}-{{ system.architecture }}"
+      url: "https://kind.sigs.k8s.io/dl/{{ kindVersion.stdout }}/kind-{{ system.os }}-{{ system.architecture }}"
       dest: "/tmp/kind/{{ kindBin }}"
 
 - name: "Move kind binary to {{ local.userBin }}"

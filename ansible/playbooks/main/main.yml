@@ -29,6 +29,4 @@
   tags:
     - others
   roles:
-#      - role: local # Disabled since permissions are not handled right
-      - role: sudo
       - role: nas

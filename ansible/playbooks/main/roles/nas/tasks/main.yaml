@@ -7,5 +7,3 @@
   loop:
       - instruction: "{{ servers.nasIp }}:/volume1  /home/{{ local.username }}/NFS  nfs  defaults  0  0"
         marker: "general"
-      - instruction: "{{ servers.nasIp }}:/volume1/k3s/media  /home/{{ local.username }}/Media  nfs  defaults  0  0"
-        marker: "media"

@@ -29,6 +29,7 @@
         - wine64
         - flatpak
         - gnome-software-plugin-flatpak
+        - awscli
     state: present
     update_cache: true
 

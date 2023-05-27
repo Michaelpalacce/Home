@@ -1,1 +1,0 @@
-Configures passwordless sudoer for my user and others
