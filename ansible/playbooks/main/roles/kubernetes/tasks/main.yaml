@@ -7,6 +7,9 @@
 - name: Install K9S
   shell: "curl -sS https://webinstall.dev/k9s | bash"
 
+- name: Install kubent
+  shell: "sh -c \"$(curl -sSL https://git.io/install-kubent)\""
+
 # KUBECTL START
 - name: Save Stable version
   uri:
