@@ -6,7 +6,7 @@
   loop:
     - repo: ppa:graphics-drivers/ppa
       state: present
-    - repo: ppa:neovim-ppa/stable
+    - repo: ppa:neovim-ppa/unstable
       state: present
 
 - name: Ensure apps are installed
