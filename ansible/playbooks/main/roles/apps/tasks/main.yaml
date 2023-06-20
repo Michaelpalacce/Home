@@ -6,11 +6,16 @@
   loop:
     - repo: ppa:graphics-drivers/ppa
       state: present
+    - repo: ppa:neovim-ppa/stable
+      state: present
 
 - name: Ensure apps are installed
   apt:
     name:
         - curl
+        - neovim
+        - python3-dev
+        - python3-pip
         - git
         - vim
         - python3-pip
