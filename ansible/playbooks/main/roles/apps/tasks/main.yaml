@@ -34,6 +34,7 @@
         - wine64
         - flatpak
         - gnome-software-plugin-flatpak
+        - ripgrep 
         - awscli
     state: present
     update_cache: true
@@ -76,3 +77,7 @@
 - name: Install Datree
   shell:
     cmd: curl https://get.datree.io | /bin/bash
+
+- name: Clone Packer.nvim
+  shell:
+    cmd: git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
