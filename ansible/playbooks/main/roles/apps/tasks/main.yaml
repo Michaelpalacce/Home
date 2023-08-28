@@ -36,6 +36,8 @@
         - gnome-software-plugin-flatpak
         - ripgrep 
         - awscli
+        - xclip
+        - stow
     state: present
     update_cache: true
 
