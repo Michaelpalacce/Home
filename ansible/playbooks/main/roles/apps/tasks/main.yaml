@@ -18,8 +18,6 @@
         - python3-dev
         - python3-pip
         - git
-        - vim
-        - python3-pip
         - vlc
         - nfs-common
         - apt-transport-https
@@ -39,9 +37,12 @@
         - awscli
         - xclip
         - stow
-        - find-fd
+        - fd-find
     state: present
     update_cache: true
+
+- name: Use the correct fd
+  shell: ln -s $(which fdfind) ~/.local/bin/fd
 
 - name: Ensure pip apps are installed
   pip:
