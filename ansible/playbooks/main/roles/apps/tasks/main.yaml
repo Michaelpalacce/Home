@@ -39,6 +39,7 @@
         - awscli
         - xclip
         - stow
+        - find-fd
     state: present
     update_cache: true
 

@@ -161,19 +161,28 @@
     marker: "# {mark} ANSIBLE MANAGED SOURCE COMPLETION BLOCK {{ item.marker }}"
   loop:
     - completion: |
-          source <(kubectl completion bash)
-          complete -F __start_kubectl k
+          if command -v kubectl &> /dev/null
+          then
+            source <(kubectl completion bash)
+            complete -F __start_kubectl k
+          fi
       marker: "kubectl"
     - completion: |
-          source <(velero completion bash)
-          complete -F __start_velero v
+          if command -v velero &> /dev/null
+          then
+            source <(velero completion bash)
+            complete -F __start_velero v
+          fi
       marker: "velero"
     - completion: |
           source <(flux completion bash)
       marker: "fluxcd"
     - completion: |
-          source <(helm completion bash)
-          complete -F __start_helm h
+          if command -v helm &> /dev/null
+          then
+            source <(helm completion bash)
+            complete -F __start_helm h
+          fi
       marker: "helm"
     - completion: |
           source <(minikube completion bash)
